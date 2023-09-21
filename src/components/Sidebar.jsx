@@ -9,7 +9,13 @@ import { useStateContext } from "../contexts/ContextProvider";
 import Button from "./Button";
 
 const Sidebar = () => {
-    const { activeMenu, setActiveMenu } = useStateContext();
+    const { activeMenu, setActiveMenu, screenSize } = useStateContext();
+
+    const handleCloseSideBar = () => {
+        if (activeMenu && screenSize <= 900) {
+            setActiveMenu(false);
+        }
+    };
 
     const activeLink =
         "flex items-center gap-3 pl-4 pt-3 pb-2.5 rounded-lg text-white bg-green-700 text-md m-2";
@@ -24,7 +30,7 @@ const Sidebar = () => {
                     <div className="flex justify-between items-center">
                         <Link
                             to="/"
-                            onClick={() => setActiveMenu(false)}
+                            onClick={handleCloseSideBar}
                             className="items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-green-700"
                         >
                             <SiShopware /> <span>Shoppy</span>
@@ -35,7 +41,11 @@ const Sidebar = () => {
                         >
                             <button
                                 type="button"
-                                onClick={() => setActiveMenu((preActiveMenu) => !preActiveMenu)}
+                                onClick={() =>
+                                    setActiveMenu(
+                                        (preActiveMenu) => !preActiveMenu
+                                    )
+                                }
                                 className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
                             >
                                 <MdOutlineCancel />
